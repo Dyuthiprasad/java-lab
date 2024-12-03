@@ -1,0 +1,162 @@
+import java.util.*;
+
+abstract class Account {
+    String customer_name;
+    String acc_no;
+    int acc_type;
+    double balance = 0.0;
+
+   
+    Account(String customer_name, String acc_no, int acc_type) {
+        this.customer_name = customer_name;
+        this.acc_no = acc_no;
+        this.acc_type = acc_type;
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited: " + amount);
+        displayBalance();
+    }
+
+    public void displayBalance() {
+        System.out.println("The current balance is: " + balance);
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void chequeBook(String to_name, double cheque_amount) {
+        System.out.println("A cheque was issued to: " + to_name);
+        balance -= cheque_amount;
+        displayBalance();
+    }
+}
+
+class Curr_acct extends Account {
+    final double min_bal = 500.0;
+    final double penalty = 50.0;
+
+    Curr_acct(String customer_name, String acc_no, int acc_type) {
+        super(customer_name, acc_no, acc_type);
+    }
+
+    public void checkMinBal() {
+        if (balance < min_bal) {
+            balance -= penalty;
+            System.out.println("Penalty of " + penalty + " is issued due to low balance.");
+        }
+        displayBalance();
+    }
+
+    public void withdraw(double withdraw_amt) {
+        if (withdraw_amt <= balance) {
+            balance -= withdraw_amt;
+            System.out.println("Withdrew: " + withdraw_amt);
+        } else {
+            System.out.println("Insufficient funds for withdrawal.");
+        }
+        displayBalance();
+    }
+}
+
+class Sav_acct extends Account {
+    final double interest_rate = 7.0;
+
+    Sav_acct(String customer_name, String acc_no, int acc_type) {
+        super(customer_name, acc_no, acc_type);
+    }
+
+    public void computeInterest() {
+        double interest = balance * (interest_rate / 100);
+        balance += interest;
+        System.out.println("Interest added: " + interest);
+        displayBalance();
+    }
+
+    public void withdraw(double withdraw_amt) {
+        if (withdraw_amt <= balance) {
+            balance -= withdraw_amt;
+            System.out.println("Withdrew: " + withdraw_amt);
+        } else {
+            System.out.println("Insufficient funds for withdrawal.");
+        }
+        displayBalance();
+    }
+}
+
+public class Bank {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+       
+        System.out.println("Enter your name and account no: ");
+        String customer_name = sc.next();
+        String acc_no = sc.next();
+        System.out.println("Input your initial balance: ");
+        double balance = sc.nextDouble();
+
+        System.out.println("Enter your account type:\nFor savings account enter 1\nFor current account enter 2");
+        int acc_type = sc.nextInt();
+
+        Account account = null;
+        if (acc_type == 1) {
+            account = new Sav_acct(customer_name, acc_no, acc_type);
+        } else if (acc_type == 2) {
+            account = new Curr_acct(customer_name, acc_no, acc_type);
+        } else {
+            System.out.println("Invalid account type.");
+            
+        }
+
+        account.deposit(balance); 
+        int ch;
+        System.out.println("Enter:\n1: Deposit\n2: Withdraw\n3: Cheque book\n4: View Balance\n5: Compute Interest (Savings)");
+        ch = sc.nextInt();
+
+        switch (ch) {
+            case 1:
+                System.out.println("Enter the amount you want to deposit: ");
+                double depositAmount = sc.nextDouble();
+                account.deposit(depositAmount);
+                break;
+
+            case 2:
+                System.out.println("Enter the amount you want to withdraw: ");
+                double withdrawAmount = sc.nextDouble();
+                if (account instanceof Curr_acct) {
+                    ((Curr_acct) account).withdraw(withdrawAmount);
+                } else if (account instanceof Sav_acct) {
+                    ((Sav_acct) account).withdraw(withdrawAmount);
+                }
+                break;
+
+            case 3:
+                System.out.println("Enter the payee name for the cheque: ");
+                String to_name = sc.next();
+                System.out.println("Enter the cheque amount: ");
+                double chequeAmount = sc.nextDouble();
+                account.chequeBook(to_name, chequeAmount);
+                break;
+
+            case 4:
+                account.displayBalance();
+                break;
+
+            case 5:
+                if (account instanceof Sav_acct) {
+                    ((Sav_acct) account).computeInterest();
+                } else {
+                    System.out.println("Interest is only applicable to savings accounts.");
+                }
+                break;
+
+            default:
+                System.out.println("Invalid option.");
+                break;
+        }
+
+        sc.close(); 
+    }
+}
