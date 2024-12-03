@@ -1,0 +1,82 @@
+import java.util.*;
+
+abstract class Shapes {
+    public abstract void area();
+}
+
+class Rectangle extends Shapes {
+    int length;
+    int breadth;
+    double area1;
+
+    Rectangle(int length, int breadth) {
+        this.length = length;
+        this.breadth = breadth;
+    }
+
+    public void area() {
+        area1 = length * breadth;
+        System.out.println("Area of rectangle is: " + area1);
+    }
+}
+
+class Triangle extends Shapes {
+    int base;
+    int height;
+    double area2;
+
+    Triangle(int base, int height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    public void area() {
+        area2 = 0.5 * base * height;
+        System.out.println("The area of triangle is: " + area2);
+    }
+}
+
+class Circle extends Shapes {
+    int radius;
+    double area3;
+
+    Circle(int radius) {
+        this.radius = radius;
+    }
+
+    public void area() {
+        area3 = 3.14 * radius * radius;
+        System.out.println("The area of the circle is: " + area3);
+    }
+}
+
+public class Area {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+       
+        System.out.println("Finding the area of the rectangle: ");
+        System.out.println("Enter the length and breadth of the rectangle: ");
+        int length = sc.nextInt();
+        int breadth = sc.nextInt();
+        Rectangle r = new Rectangle(length, breadth);
+        r.area();
+
+       
+        System.out.println("Finding the area of the triangle: ");
+        System.out.println("Enter the length of base and height of the triangle: ");
+        int base = sc.nextInt();
+        int height = sc.nextInt();
+        Triangle t = new Triangle(base, height);
+        t.area();
+
+       
+        System.out.println("Finding the area of the circle: ");
+        System.out.println("Enter the radius of the circle: ");
+        int radius = sc.nextInt();
+        Circle c = new Circle(radius);
+        c.area();
+
+        sc.close(); 
+    }
+}
