@@ -1,0 +1,50 @@
+import java.util.*;
+
+abstract class Animal {
+    public abstract void eat();
+    public abstract void sleep();
+}
+
+class Lion extends Animal {
+    public void eat() {
+        System.out.println("Lion: Eats");
+    }
+
+    public void sleep() {
+        System.out.println("Lion: Sleeps");
+    }
+}
+
+class Tiger extends Animal {
+    public void eat() {
+        System.out.println("Tiger: Eats");
+    }
+
+    public void sleep() {
+        System.out.println("Tiger: Sleeps");
+    }
+}
+Class Deer extends Animal {
+    public void eat() {
+        System.out.println("Deer: Eats");
+    }
+
+    public void sleep() {
+        System.out.println("Deer: Sleeps");
+    }
+}
+
+public class Base {
+    public static void main(String[] args) {
+        Lion lion = new Lion();
+        Tiger tig = new Tiger();
+        Deer deer = new Deer();
+
+        lion.eat();
+        lion.sleep();
+        tig.eat();
+        tig.sleep();
+        deer.eat();
+        deer.sleep();
+    }
+}
