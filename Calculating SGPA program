@@ -50,7 +50,7 @@ class Student {
         }
 
         if (totalCredits == 0) {
-            return 0.0; // Avoid division by zero
+            return 0.0;
         }
         return totalGradePoints / totalCredits;
     }
@@ -61,7 +61,7 @@ class Student {
         else if (marks >= 60) return 7;
         else if (marks >= 50) return 6;
         else if (marks >= 40) return 5;
-        else return 0; // Marks < 40 → Fail
+        else return 0; 
     }
     public static void main(String[] args) {
         Student student = new Student();
