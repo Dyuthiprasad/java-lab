@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class quad {
+    public static void main(String[] args) {
+        int a, b, c;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Input the value of a:");
+        a = sc.nextInt();
+        System.out.println("Input the value of b:");
+        b = sc.nextInt();
+        System.out.println("Input the value of c:");
+        c = sc.nextInt();
+        
+        double D;
+        D = b * b - 4 * a * c;
+
+        if (D >= 0) {
+            double x;
+            x = (-b + Math.pow(D, 0.5)) / 2 * a;
+            System.out.println("The solution is " + x);
+        } 
+        else if (D > 0) {
+            double x1, x2;
+            x1 = (-b + Math.pow(D, 0.5)) / (2 * a);
+            x2 = (-b - Math.pow(D, 0.5)) / (2 * a);
+            System.out.println("The solutions are " + x1 + ", " + x2);
+        } 
+        else {
+            System.out.println("There is no real solution");
+        }
+    }
+}
