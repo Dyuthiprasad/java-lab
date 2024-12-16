@@ -15,8 +15,6 @@ public class External extends Internals {
             externalMarks[i] = s.nextInt();
         }
     }
-
-    // Method to calculate final marks (internal + external)
     public void calculateFinalMarks() {
         for (int i = 0; i < 5; i++) {
             finalMarks[i] = marks[i] + externalMarks[i]; 
